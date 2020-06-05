@@ -1,26 +1,70 @@
 # Create a class to hold a city location. Call the class "City". It should have
 # fields for name, lat and lon (representing latitude and longitude).
+'''
+Understand, Plan, Execute, and Reflect
+To do: 
+1. Create a class to hold a city location and need to identify the class as "City"
+2. The city class needs to hold fields: name, lat, and lon 
+'''
 
+class City:
+  # define intializer - needed for when a new instance is created
+  def __init__(self, name, lat, lon):
+    # list out fields below:
+    self.name = name
+    self.lat = lat
+    self.lon = lon
+  
+  # need to return the string representation of the object via f-string
+  def __str__(self):
+    return f'{self.name}, {self.lat}, {self.lon}'
+
+'''
+__repr__ is unambiguous
+__str__ is readable
+'''
 
 # We have a collection of US cities with population over 750,000 stored in the
 # file "cities.csv". (CSV stands for "comma-separated values".)
-#
+
+import csv
+
 # In the body of the `cityreader` function, use Python's built-in "csv" module 
 # to read this file so that each record is imported into a City instance. Then
-# return the list with all the City instances from the function.
+# return the list with all the City instances from the function
 # Google "python 3 csv" for references and use your Google-fu for other examples.
 #
 # Store the instances in the "cities" list, below.
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
+'''
+To Do:
+1. Read in csv so that each record is imported into the City instance
+2. Return a list with city instances from the function
+3. Store the instances in the cities list from #2.
+Note: disregard column names
+'''
+
 cities = []
 
 def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
   # `cities` list
-    
+
+  with open('cities.csv', 'r') as x:
+    # need a variable to read in (as x)  
+    records = csv.reader(x)
+    # from Note, skip header
+    next(records)
+    # need to iterate (take in each element, one after another) and populate cities list
+    for city in records:
+      # what are tha parameters? City(name, lat, lon)
+      # need to add in params with append method, identify data type and column number
+      cities.append(City(city[0], float(city[3]), float(city[4])))
+      
+   
     return cities
 
 cityreader(cities)
@@ -29,6 +73,9 @@ cityreader(cities)
 for c in cities:
     print(c)
 
+'''
+save, commit, re-read instructions, and attempt stretch goal if time permits
+'''
 # STRETCH GOAL!
 #
 # Allow the user to input two points, each specified by latitude and longitude.
